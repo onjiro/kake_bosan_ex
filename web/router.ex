@@ -17,6 +17,7 @@ defmodule KakeBosanEx.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/dashboard", PageController, :dashboard
     resources "users", UserController
   end
 

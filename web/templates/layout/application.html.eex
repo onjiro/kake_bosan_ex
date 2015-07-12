@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <title>家計簿さん</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-  </head>
+        <title>家計簿さん</title>
+        <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    </head>
 
-  <body>
-    <div class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <body>
+        <%= if @current_user do %>
+            <%= render "header.html", current_user: @current_user %>
+        <%= end %>
 
-      <%= @inner %>
+        <div class="container-fluid">
+            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    <script>require("web/static/js/app")</script>
-  </body>
+            <section class="content row">
+                <%= @inner %>
+            </section>
+        </div>
+
+        <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+        <script>require("web/static/js/app")</script>
+    </body>
 </html>
+
+
