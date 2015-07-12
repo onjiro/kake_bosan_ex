@@ -11,6 +11,17 @@ defmodule KakeBosanEx.AuthController do
     redirect conn, external: GitHub.authorize_url!
   end
 
+  def dev(conn, _params) do
+    conn
+    |> put_session(:current_user, "development_user")
+    |> put_session(:access_token, "dummy_token")
+    |> redirect(to: "/dashboard")
+  end
+
+  def github(conn, _params) do
+    redirect conn, external: GitHub.authorize_url!
+  end
+
   @doc """
   This action is reached via `/auth/github/callback` is the the callback URL that
   the OAuth2 provider will redirect the user back to with a `code` that will
@@ -24,6 +35,6 @@ defmodule KakeBosanEx.AuthController do
     conn
     |> put_session(:current_user, user)
     |> put_session(:access_token, token.access_token)
-    |> redirect(to: "/")
+    |> redirect(to: "/dashboard")
   end
 end

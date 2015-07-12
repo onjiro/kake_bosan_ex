@@ -8,8 +8,8 @@
 
   <p>
     <span class="glyphicon glyphicon-signin">
-      <a href="<%= auth_path @conn, :index %>" class="btn btn-primary" >開発者としてログイン</a>
-      <a href="<%= auth_path @conn, :index %>" class="btn btn-primary" >GitHub でログイン</a>
+      <a href="<%= auth_path @conn, :dev %>" class="btn btn-primary" >開発者としてログイン</a>
+      <a href="<%= auth_path @conn, :github %>" class="btn btn-primary" >GitHub でログイン</a>
     </span>
   </p>
 </section>

@@ -23,7 +23,9 @@ defmodule KakeBosanEx.Router do
   scope "/auth", KakeBosanEx do
     pipe_through :browser
     get "/", AuthController, :index
+    get "/github", AuthController, :github
     get "/github/callback", AuthController, :callback_for_github
+    get "/dev", AuthController, :dev # todo 開発時のみに制限する
   end
 
   # Other scopes may use custom stacks.
