@@ -1,4 +1,4 @@
-<section class="jumbotron">
+<section class="jumbotron" id="hello">
   <h1>家計簿さん</h1>
   <p>複式簿記で家計簿を！</p>
   <h3 class="small">複式簿記なら...</h3>
