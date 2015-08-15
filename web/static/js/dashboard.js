@@ -1,12 +1,23 @@
 import NewEntryButtonForm from "./new-entry-button-form"
-import RecentHistroy from "./recent-history"
+import RecentHistory from "./recent-history"
+import EntryModal from "./entry-modal"
 
 export default React.createClass({
-    render(): any {
+    getInitialState() {
+        return {
+            showEntryModal: false,
+        };
+    },
+    toggleEntryModal() {
+        this.setState({showEntryModal: !this.state.showEntryModal})
+    },
+    render() {
         return (
             <div>
-                <NewEntryButtonForm />
-                <RecentHistroy />
+                <NewEntryButtonForm onClick={this.toggleEntryModal}>登録</NewEntryButtonForm>
+                <RecentHistory />
+
+                <EntryModal visible={this.state.showEntryModal} onCancel={this.toggleEntryModal}/>
             </div>
         );
     }

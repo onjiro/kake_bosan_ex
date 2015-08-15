@@ -1,10 +1,17 @@
 export default React.createClass({
-    render(): any {
+    handleClick(e) {
+        e.preventDefault();
+        this.props.onClick(e);
+    },
+    render() {
         return (
             <div className="col-xs-12">
               <div className="btn-group btn-group-justified">
                 <div className="btn-group">
-                  <a className="btn btn-info btn-lg js-entry" href="#" onClick={this.hoge}><span className="glyphicon glyphicon-pencil"></span> 登録</a>
+                  <a className="btn btn-info btn-lg js-entry" href="#" onClick={this.handleClick}>
+                    <span className="glyphicon glyphicon-pencil"></span>
+                    {this.props.children}
+                  </a>
                 </div>
               </div>
             </div>
