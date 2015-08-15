@@ -17,7 +17,7 @@ export default React.createClass({
                 <NewEntryButtonForm onClick={this.toggleEntryModal}>登録</NewEntryButtonForm>
                 <RecentHistory />
 
-                <EntryModal visible={this.state.showEntryModal} onCancel={this.toggleEntryModal}/>
+                <EntryModal title="登録" visible={this.state.showEntryModal} onCancel={this.toggleEntryModal}/>
             </div>
         );
     }
