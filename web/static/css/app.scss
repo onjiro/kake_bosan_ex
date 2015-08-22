@@ -5,3 +5,6 @@
 form.link, form.button {
   display: inline;
 }
+input {
+  font-size: 16px !important; /* iOSでフォーム入力時にズームするのを避ける */
+}
