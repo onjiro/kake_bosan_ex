@@ -1,10 +1,10 @@
 <nav class="navbar navbar-default" role="navigation">
     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-        <span class="glyphicon glyphicon-user"></span>
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
     </button>
 
     <div class="nav navbar-header">
-        <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> 家計簿さん</a>
+        <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-home"></span> 家計簿さん</a>
     </div>
 
     <div class="collapse navbar-collapse" id="navbar-collapse">

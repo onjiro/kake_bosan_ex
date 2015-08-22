@@ -1,3 +1,5 @@
+import InputItemAndAmount from "./input-item-and-amount"
+
 export default React.createClass({
     handleCancel(e) {
         e.preventDefault();
@@ -21,33 +23,15 @@ export default React.createClass({
                                </div>
                              </div>
 
-                             <legend>借方</legend>
-                             <div className="form-group">
-                               <select className="form-control">
-                                 <option>費用：外食費</option>
-                               </select>
-                               <div className="input-group">
-                                 <div className="input-group-addon">&yen;</div>
-                                 <input className="form-control" type="number" placeholder="借方金額" style={{textAlign: "right"}}/>
-                               </div>
-                               <div className="btn btn-default btn-block">
-                                 <span className="glyphicon glyphicon-plus"></span> 行を追加
-                               </div>
-                             </div>
+                             <section>
+                               <legend>借方</legend>
+                               <InputItemAndAmount />
+                             </section>
 
-                             <legend>貸方</legend>
-                             <div className="form-group">
-                               <select className="form-control">
-                                 <option>費用：外食費</option>
-                               </select>
-                               <div className="input-group">
-                                 <div className="input-group-addon">&yen;</div>
-                                 <input className="form-control" type="number" placeholder="借方金額" style={{textAlign: "right"}}/>
-                               </div>
-                               <div className="btn btn-default btn-block">
-                                 <span className="glyphicon glyphicon-plus"></span> 行を追加
-                               </div>
-                             </div>
+                             <section>
+                               <legend>貸方</legend>
+                               <InputItemAndAmount />
+                             </section>
                            </form>
                          </div>
                          <div className="modal-footer">
