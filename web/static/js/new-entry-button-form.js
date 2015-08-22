@@ -9,8 +9,8 @@ export default React.createClass({
               <div className="btn-group btn-group-justified">
                 <div className="btn-group">
                   <a className="btn btn-info btn-lg js-entry" href="#" onClick={this.handleClick}>
+                    {this.props.children}&nbsp;
                     <span className="glyphicon glyphicon-pencil"></span>
-                    {this.props.children}
                   </a>
                 </div>
               </div>
