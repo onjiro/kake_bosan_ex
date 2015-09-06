@@ -8,7 +8,6 @@ export default React.createClass({
             currentEntry: null
         };
     },
-    /* 新規登録を開始する */
     startNewEntry() {
         this.setState({
             currentEntry: {
@@ -18,7 +17,10 @@ export default React.createClass({
             }
         });
     },
-    /* 登録モーダルを閉じる */
+    handleSave(data) {
+        console.log(data);
+        this.closeEntryModal();
+    },
     closeEntryModal() {
         this.setState({ currentEntry: null })
     },
@@ -28,10 +30,11 @@ export default React.createClass({
                 <NewEntryButtonForm onClick={this.startNewEntry}>登録</NewEntryButtonForm>
                 <RecentHistory />
 
-                <EntryModal title="登録"
+                <EntryModal title="登録" url="api/transactions"
                             editTarget={this.state.currentEntry}
                             show={this.state.currentEntry}
-                            onCancel={this.closeEntryModal}/>
+                            onSave={this.handleSave}
+                            onCancel={this.closeEntryModal} />
             </div>
         );
     }

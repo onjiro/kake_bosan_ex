@@ -15,7 +15,7 @@ export default React.createClass({
     },
     render() {
         return (
-            <div key={this.props.data.id} className="account-line clearfix">
+            <div className="account-line clearfix">
                 <Select className="form-control col-xs-8-form" placeholder="科目"
                         options={ [{label: "費用: 外食費", value: 1}] } value={this.props.data.item}
                         onChange={this.handleItemChange} />

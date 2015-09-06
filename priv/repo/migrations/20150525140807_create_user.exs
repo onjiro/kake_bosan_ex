@@ -12,6 +12,6 @@ defmodule KakeBosanEx.Repo.Migrations.CreateUser do
 
       timestamps
     end
-
+    create index(:users, [:provider, :uid], unique: true)
   end
 end

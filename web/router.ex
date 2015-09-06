@@ -11,6 +11,8 @@ defmodule KakeBosanEx.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug :assign_current_user
   end
 
   scope "/", KakeBosanEx do
@@ -29,10 +31,10 @@ defmodule KakeBosanEx.Router do
     get "/dev", AuthController, :dev # todo 開発時のみに制限する
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", KakeBosanEx do
-  #   pipe_through :api
-  # end
+  scope "/api", KakeBosanEx do
+    pipe_through :api
+    resources "transactions",  TransactionController
+  end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This
   # will allow you to have access to the current user in your views with
