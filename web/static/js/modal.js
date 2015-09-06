@@ -1,7 +1,7 @@
 let Modal = React.createClass({
     render() {
         return (
-            <div className="modal" style={{display: (this.props.show) ? "block": "none", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+            <div className="modal" style={{display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
                 <div className="modal-dialog">
                      <div className="modal-content">
                          {this.props.children}
