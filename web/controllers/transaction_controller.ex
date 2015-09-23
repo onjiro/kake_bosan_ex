@@ -4,7 +4,6 @@ defmodule KakeBosanEx.TransactionController do
   alias KakeBosanEx.Transaction
 
   plug :scrub_params, "transaction" when action in [:create, :update]
-  plug :action
 
   def index(conn, _params) do
     transactions = Repo.all(Transaction)

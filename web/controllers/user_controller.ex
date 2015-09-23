@@ -4,7 +4,6 @@ defmodule KakeBosanEx.UserController do
   alias KakeBosanEx.User
 
   plug :scrub_params, "user" when action in [:create, :update]
-  plug :action
 
   def index(conn, _params) do
     users = Repo.all(User)
