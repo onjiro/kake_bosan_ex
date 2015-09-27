@@ -3,7 +3,7 @@ defmodule KakeBosanEx.Repo.Migrations.CreateItem do
 
   def change do
     create table(:items) do
-      add :user_id, :integer
+      add :user_id, references(:users)
       add :name, :string
       add :type_id, :integer
       add :description, :string

@@ -5,12 +5,13 @@ defmodule KakeBosanEx.Transaction do
     field :date, Ecto.DateTime
     field :description, :string
 
-    belongs_to :user, HelloPhoenix.User, foreign_key: :user_id
+    belongs_to :user, KakeBosanEx.User
+    has_many :entries, KakeBosanEx.Entry
 
     timestamps
   end
 
-  @required_fields ~w(user_id date)
+  @required_fields ~w(user_id date entries)
   @optional_fields ~w(description)
 
   @doc """

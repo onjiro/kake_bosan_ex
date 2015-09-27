@@ -3,8 +3,8 @@ defmodule KakeBosanEx.Repo.Migrations.CreateEntry do
 
   def change do
     create table(:entries) do
-      add :user_id, :integer
-      add :transaction_id, :integer
+      add :user_id, references(:users)
+      add :transaction_id, references(:transactions)
       add :side_id, :integer
       add :item_id, :integer
       add :amount, :integer

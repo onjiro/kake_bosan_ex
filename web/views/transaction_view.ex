@@ -1,6 +1,8 @@
 defmodule KakeBosanEx.TransactionView do
   use KakeBosanEx.Web, :view
 
+  alias KakeBosanEx.TransactionView
+
   def render("index.json", %{transactions: transactions}) do
     %{data: render_many(transactions, TransactionView, "transaction.json")}
   end

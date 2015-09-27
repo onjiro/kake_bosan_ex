@@ -2,10 +2,11 @@ defmodule KakeBosanEx.Item do
   use KakeBosanEx.Web, :model
 
   schema "items" do
-    field :user_id, :integer
     field :name, :string
     field :type_id, :integer
     field :description, :string
+
+    belongs_to :user, KekebosanEx.User
 
     timestamps
   end

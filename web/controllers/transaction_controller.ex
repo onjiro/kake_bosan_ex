@@ -11,18 +11,20 @@ defmodule KakeBosanEx.TransactionController do
   end
 
   def create(conn, %{"transaction" => transaction_params}) do
-    # changeset = Transaction.changeset(%Transaction{}, Dict.put(transaction_params, :user_id, conn.assigns[:current_user]))
-    changeset = Transaction.changeset(%Transaction{}, %{user_id: 1, date: transaction_params["date"]})
+    user_id = 1 # todo
+    params = transaction_params
+    |> Dict.put("user_id", user_id)
+    |> Dict.put("entries", Enum.map(transaction_params["entries"], fn {_, one} -> Dict.put(one, "user_id", user_id) end))
+    changeset = Transaction.changeset(%Transaction{}, params)
 
-    if changeset.valid? do
-      transaction = Repo.insert(changeset)
-      render(conn, "show.json", transaction: transaction)
-    else
-      conn
-      |> put_status(:unprocessable_entity)
-      |> render(KakeBosanEx.ChangesetView, "error.json", changeset: changeset)
+    case changeset.valid? && Repo.insert(changeset) do
+      {:ok, transaction} ->
+        render(conn, "show.json", transaction: transaction)
+      _ ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(KakeBosanEx.ChangesetView, "error.json", changeset: changeset)
     end
-
   end
 
   def show(conn, %{"id" => id}) do

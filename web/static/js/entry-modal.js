@@ -5,8 +5,8 @@ export default React.createClass({
     getInitialState() {
         return {
             date: new Date(),
-            debits:  [{ id: "debit0" , item: null, amount: null }],
-            credits: [{ id: "credit0", item: null, amount: null }]
+            debits:  [{ id: "debit0" , item_id: null, amount: null, side_id: 1 }],
+            credits: [{ id: "credit0", item_id: null, amount: null, side_id: 2 }]
         };
     },
     handleCancel(e) {
@@ -22,8 +22,9 @@ export default React.createClass({
             method: "POST",
             data: { transaction: {
                 date: this.state.date.toISOString(),
-                debits: this.state.debits,
-                credits: this.state.credits
+                entries: _.select(this.state.debits.concat(this.state.credits), (one) => {
+                    return one.item_id && one.amount;
+                })
             }}
         }).done((data) => {
             this.props.onSave(data);
@@ -41,7 +42,7 @@ export default React.createClass({
         _.extend(_.findWhere(newDebits, { id: data.id }), data);
 
         if (_.last(this.state.debits).amount) {
-            this.setState({ debits: newDebits.concat({ id: "debit" + newDebits.length, item: null, amount: null }) });
+            this.setState({ debits: newDebits.concat({ id: "debit" + newDebits.length, item_id: null, amount: null, side_id: 1 }) });
         } else {
             this.setState({ debits: newDebits });
         }
@@ -51,7 +52,7 @@ export default React.createClass({
         _.extend(_.findWhere(newCredits, { id: data.id }), data);
 
         if (_.last(this.state.credits).amount) {
-            this.setState({ credits: newCredits.concat({ id: "credit" + newCredits.length, item: null, amount: null }) });
+            this.setState({ credits: newCredits.concat({ id: "credit" + newCredits.length, item_id: null, amount: null, side_id: 2 }) });
         } else {
             this.setState({ credits: newCredits });
         }
