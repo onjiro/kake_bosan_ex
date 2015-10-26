@@ -1,5 +1,6 @@
 defmodule KakeBosanEx.AuthController do
   use KakeBosanEx.Web, :controller
+  alias KakeBosanEx.User
 
   @doc """
   This action is reached via `/auth` and redirects to the OAuth2 provider
@@ -9,10 +10,20 @@ defmodule KakeBosanEx.AuthController do
     redirect conn, external: GitHub.authorize_url!
   end
 
-  def dev(conn, _params) do
+  def dev(conn, params) do
+    user = Repo.get_by(User, provider: "dev", uid: params["uid"] || "development_user")
+    unless user do
+      changeset = User.changeset(%User{}, %{ provider: "dev",
+                                             uid: params["uid"] || "development_user",
+                                             name: params["name"] || "development_user",
+                                             image_url: "",
+                                             email: "",
+                                             access_token: "dev"})
+      user = Repo.insert(changeset)
+    end
+
     conn
-    |> put_session(:current_user, "development_user")
-    |> put_session(:access_token, "dummy_token")
+    |> put_session(:current_user_id, user.id)
     |> redirect(to: "/dashboard")
   end
 

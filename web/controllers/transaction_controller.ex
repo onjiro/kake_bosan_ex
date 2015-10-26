@@ -11,7 +11,7 @@ defmodule KakeBosanEx.TransactionController do
   end
 
   def create(conn, %{"transaction" => transaction_params}) do
-    user_id = 1 # todo
+    user_id = get_session(conn, :current_user_id)
     params = transaction_params
     |> Dict.put("user_id", user_id)
     |> Dict.put("entries", Enum.map(transaction_params["entries"], fn {_, one} -> Dict.put(one, "user_id", user_id) end))
