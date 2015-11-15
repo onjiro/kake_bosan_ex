@@ -51,7 +51,8 @@ exports.config = {
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
-      ignore: [/^(web\/static\/vendor)/]
+      ignore: [/^(web\/static\/vendor)/],
+      pattern: /\.(js|es6|jsx)$/
     },
     afterBrunch: [
       'rm -rf priv/static/fonts; mkdir priv/static/fonts; cd priv/static/fonts; ln -s ../../../bower_components/bootstrap/dist/fonts/* ./; cd -'
