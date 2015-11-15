@@ -6,7 +6,13 @@ defmodule KakeBosanEx.TransactionController do
   plug :scrub_params, "transaction" when action in [:create, :update]
 
   def index(conn, _params) do
-    transactions = Repo.all(Transaction)
+    user_id = get_session(conn, :current_user_id)
+    transactions = Repo.all(
+      from t in Transaction,
+      where: t.user_id == ^user_id,
+      preload: [:entries]
+    )
+
     render(conn, "index.json", transactions: transactions)
   end
 

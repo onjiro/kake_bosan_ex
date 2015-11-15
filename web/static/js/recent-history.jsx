@@ -1,5 +1,16 @@
 export default React.createClass({
-  render(): any {
+  render() {
+    var list =  this.props.data.map((transaction) => (
+      <tr>
+        <td>{transaction.date}</td>
+        <td>todo</td>
+        <td>&yen;{transaction.entries[0].amount}</td>
+        <td>todo</td>
+        <td>&yen;{transaction.entries[1].amount}</td>
+        <td></td>
+      </tr>
+    ));
+
     return (
       <div className="col-xs-12">
         <h4>直近７日間の履歴</h4>
@@ -16,32 +27,7 @@ export default React.createClass({
               </tr>
             </thead>
             <tbody>
-              {this.props.data.map((transaction) => {
-                  <tr>
-                      <td>2015-08-15</td>
-                        <td>外食費</td>
-                          <td>&yen;630</td>
-                            <td>現金</td>
-                              <td>&yen;630</td>
-                                <td></td>
-                    </tr>
-                  })}
-                  <tr>
-                    <td>2015-08-15</td>
-                    <td>外食費</td>
-                    <td>&yen;630</td>
-                    <td>現金</td>
-                    <td>&yen;630</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>2015-08-13</td>
-                    <td>遊興費</td>
-                    <td>&yen;1,016</td>
-                    <td>DCカード</td>
-                    <td>&yen;1,016</td>
-                    <td></td>
-                  </tr>
+              {list}
             </tbody>
           </table>
           <div className="col-xs-12">
@@ -51,6 +37,6 @@ export default React.createClass({
           </div>
         </section>
       </div>
-    )
+    );
   }
 });

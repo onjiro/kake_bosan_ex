@@ -1,13 +1,23 @@
-import NewEntryButtonForm from "./new-entry-button-form"
-import RecentHistory from "./recent-history"
-import EntryModal from "./entry-modal"
+import NewEntryButtonForm from "./new-entry-button-form";
+import RecentHistory from "./recent-history";
+import EntryModal from "./entry-modal";
 
 export default React.createClass({
   getInitialState() {
     return {
       currentEntry: null,
-      transactions: [],
+      transactions: []
     };
+  },
+  componentDidMount() {
+    $.ajax(this.props.url, {
+      dataType: 'json',
+      cache: false
+    }).then((data) => {
+      this.setState({transactions: data.data});
+    }, (err) => {
+      console.log(err);
+    });
   },
   startNewEntry() {
     this.setState({
@@ -23,7 +33,7 @@ export default React.createClass({
     this.closeEntryModal();
   },
   closeEntryModal() {
-    this.setState({ currentEntry: null })
+    this.setState({ currentEntry: null });
   },
   render() {
     return (

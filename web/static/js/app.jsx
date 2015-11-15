@@ -3,5 +3,5 @@ import "deps/phoenix_html/web/static/js/phoenix_html"
 import Dashboard from "./dashboard"
 
 $(function() {
-  React.render(<Dashboard />, document.getElementById('content'));
+  React.render(<Dashboard url="/api/transactions" />, document.getElementById('content'));
 });
