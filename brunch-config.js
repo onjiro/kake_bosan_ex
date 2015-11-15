@@ -51,7 +51,7 @@ exports.config = {
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
-      ignore: [/^(web\/static\/vendor)/],
+      ignore: [/^(bower_component|web\/static\/vendor)/],
       pattern: /\.(js|es6|jsx)$/
     },
     afterBrunch: [

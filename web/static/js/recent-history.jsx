@@ -2,7 +2,7 @@ export default React.createClass({
   render() {
     var list =  this.props.data.map((transaction) => (
       <tr>
-        <td>{transaction.date}</td>
+        <td>{moment(transaction.date).format('YYYY-MM-DD')}</td>
         <td>todo</td>
         <td>&yen;{transaction.entries[0].amount}</td>
         <td>todo</td>
