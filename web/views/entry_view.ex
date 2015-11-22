@@ -2,6 +2,7 @@ defmodule KakeBosanEx.EntryView do
   use KakeBosanEx.Web, :view
 
   alias KakeBosanEx.EntryView
+  alias KakeBosanEx.ItemView
 
   def render("index.json", %{entries: entries}) do
     %{data: render_many(entries, EntryView, "entry.json")}
