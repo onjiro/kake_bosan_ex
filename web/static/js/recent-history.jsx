@@ -1,29 +1,29 @@
 export default React.createClass({
+  debits(transaction) {
+    return _(transaction.entries || []).select((e) => e.side_id == 1);
+  },
+  credits(transaction) {
+    return _(transaction.entries || []).select((e) => e.side_id == 2);
+  },
   debitItems(transaction) {
-    return "todo";
+    return _(this.debits(transaction).reduce((memo, e) => memo + e.item.name, ''));
   },
   creditItems(transaction) {
-    return "todo";
+    return _(this.credits(transaction).reduce((memo, e) => memo + e.item.name, ''));
   },
   debitSum(transaction) {
-    return _.chain(transaction.entries)
-      .select((e) => e.side_id == 1)
-      .reduce((memo, e) => memo + e.amount, 0)
-      .value();
+    return _(this.debits(transaction).reduce((memo, e) => memo + e.amount, 0));
   },
   creditSum(transaction) {
-    return _.chain(transaction.entries)
-      .select((e) => e.side_id == 2)
-      .reduce((memo, e) => memo + e.amount, 0)
-      .value();
+    return _(this.credits(transaction).reduce((memo, e) => memo + e.amount, 0));
   },
   render() {
     var list =  this.props.data.map((transaction) => (
       <tr>
         <td>{moment(transaction.date).format('YYYY-MM-DD')}</td>
-        <td>{this.debitItems}</td>
+        <td>{this.debitItems(transaction)}</td>
         <td>&yen;{this.debitSum(transaction)}</td>
-        <td>{this.creditItems}</td>
+        <td>{this.creditItems(transaction)}</td>
         <td>&yen;{this.creditSum(transaction)}</td>
         <td></td>
       </tr>
