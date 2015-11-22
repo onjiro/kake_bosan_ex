@@ -11,20 +11,27 @@ defmodule KakeBosanEx.AuthController do
   end
 
   def dev(conn, params) do
-    user = Repo.get_by(User, provider: "dev", uid: params["uid"] || "development_user")
-    unless user do
+    user = Repo.get_by(User, provider: "dev", uid: params["uid"] || "development_user") ||
+      create_user(params)
+
+    conn
+    |> put_session(:current_user_id, user.id)
+    |> redirect(to: "/dashboard")
+  end
+
+  def create_user(params) do
       changeset = User.changeset(%User{}, %{ provider: "dev",
                                              uid: params["uid"] || "development_user",
                                              name: params["name"] || "development_user",
                                              image_url: "",
                                              email: "",
                                              access_token: "dev"})
-      user = Repo.insert(changeset)
-    end
 
-    conn
-    |> put_session(:current_user_id, user.id)
-    |> redirect(to: "/dashboard")
+      case changeset.valid? && Repo.insert(changeset) do
+        {:ok, user} ->
+          KakeBosanEx.Item.create_initial_items(user)
+          user
+      end
   end
 
   def github(conn, _params) do

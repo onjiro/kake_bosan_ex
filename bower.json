@@ -1,41 +1,42 @@
 {
-  "name": "kake_bosan_ex",
-  "version": "0.0.0",
-  "authors": [
-    "onjiro <onjiro.mohyahya@gmail.com>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jquery": "~2.1.4",
-    "react": "~0.13.3",
-    "bootstrap": "~3.3.5",
-    "react-select": "~0.6.3",
-    "underscore": "~1.8.3"
-  },
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
+    "name": "kake_bosan_ex",
+    "version": "0.0.0",
+    "authors": [
+        "onjiro <onjiro.mohyahya@gmail.com>"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": "~2.1.4",
+        "react": "~0.13.3",
+        "bootstrap": "~3.3.5",
+        "react-select": "~0.6.3",
+        "underscore": "~1.8.3",
+        "moment": "~2.10.6"
     },
-    "react-select": {
-      "main": [
-        "dist/react-select.min.js",
-        "dist/default.css"
-      ]
-    },
-    "react-input-autosize": {
-      "dependencies": {
-        "react": "~0.13.3"
-      }
+    "overrides": {
+        "bootstrap": {
+            "main": [
+                "dist/css/bootstrap.css",
+                "dist/js/bootstrap.js"
+            ]
+        },
+        "react-select": {
+            "main": [
+                "dist/react-select.min.js",
+                "dist/default.css"
+            ]
+        },
+        "react-input-autosize": {
+            "dependencies": {
+                "react": "~0.13.3"
+            }
+        }
     }
-  }
 }

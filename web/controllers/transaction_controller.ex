@@ -6,20 +6,29 @@ defmodule KakeBosanEx.TransactionController do
   plug :scrub_params, "transaction" when action in [:create, :update]
 
   def index(conn, _params) do
-    transactions = Repo.all(Transaction)
+    transactions = Repo.all(
+      from t in Transaction,
+      where: t.user_id == ^user_id(conn),
+      order_by: [desc: t.date],
+      preload: [entries: :item]
+    )
+
     render(conn, "index.json", transactions: transactions)
   end
 
   def create(conn, %{"transaction" => transaction_params}) do
-    user_id = get_session(conn, :current_user_id)
     params = transaction_params
-    |> Dict.put("user_id", user_id)
-    |> Dict.put("entries", Enum.map(transaction_params["entries"], fn {_, one} -> Dict.put(one, "user_id", user_id) end))
+    |> Dict.put("user_id", user_id(conn))
+    |> Dict.put("entries", Enum.map(transaction_params["entries"], fn {_, one} -> Dict.put(one, "user_id", user_id(conn)) end))
     changeset = Transaction.changeset(%Transaction{}, params)
 
     case changeset.valid? && Repo.insert(changeset) do
       {:ok, transaction} ->
-        render(conn, "show.json", transaction: transaction)
+        render(conn, "show.json", transaction: Repo.one(
+              from t in Transaction,
+              where: t.id == ^transaction.id,
+              preload: [entries: :item]
+        ))
       _ ->
         conn
         |> put_status(:unprocessable_entity)
@@ -51,5 +60,9 @@ defmodule KakeBosanEx.TransactionController do
 
     transaction = Repo.delete(transaction)
     render(conn, "show.json", transaction: transaction)
+  end
+
+  def user_id(conn) do
+    get_session(conn, :current_user_id)
   end
 end
