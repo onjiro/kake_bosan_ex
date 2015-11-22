@@ -32,8 +32,8 @@ export default React.createClass({
     });
   },
   handleSave(data) {
-    console.log(data);
     this.closeEntryModal();
+    this.setState({ transactions: [data.data].concat(this.state.transactions) });
   },
   closeEntryModal() {
     this.setState({ currentEntry: null });
