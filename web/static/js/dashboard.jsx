@@ -10,11 +10,14 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    $.ajax(this.props.url, {
-      dataType: 'json',
-      cache: false
-    }).then((data) => {
-      this.setState({transactions: data.data});
+    $.when(
+      $.ajax(`${this.props.url}/transactions`, { dataType: 'json', cache: false }),
+      $.ajax(`${this.props.url}/items`       , { dataType: 'json', cache: true })
+    ).then((trxRes, itemsRes) => {
+      this.setState({
+        transactions: trxRes[0].data,
+        items: itemsRes[0].data
+      });
     }, (err) => {
       console.log(err);
     });
@@ -42,6 +45,7 @@ export default React.createClass({
         <RecentHistory data={this.state.transactions} />
 
         <EntryModal title="登録" url="api/transactions"
+                    items={this.state.items}
                     editTarget={this.state.currentEntry}
                     show={this.state.currentEntry}
                     onSave={this.handleSave}

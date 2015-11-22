@@ -1,5 +1,5 @@
-import Modal from "./modal"
-import InputItemAndAmount from "./input-item-and-amount"
+import Modal from "./modal";
+import InputItemAndAmount from "./input-item-and-amount";
 
 export default React.createClass({
   getInitialState() {
@@ -59,6 +59,13 @@ export default React.createClass({
   },
   render() {
     if (!this.props.show) return <div />;
+
+    var debits = this.state.debits.map((one) => {
+      return (<InputItemAndAmount key={one.id} items={this.props.items} data={one} onChange={this.handleChangeDebit}/>);
+    });
+    var credits = this.state.credits.map((one) => {
+      return (<InputItemAndAmount key={one.id} items={this.props.items} data={one} onChange={this.handleChangeCredit}/>);
+    });
     return (
       <Modal>
         <form className="form" onSubmit={this.handleSubmit}>
@@ -78,18 +85,14 @@ export default React.createClass({
             <section>
               <legend>借方</legend>
               <div className="form-group">
-                {this.state.debits.map((one) => {
-                  return <InputItemAndAmount key={one.id} data={one} onChange={this.handleChangeDebit}/>;
-                })}
+                {debits}
               </div>
             </section>
             
             <section>
               <legend>貸方</legend>
               <div className="form-group">
-                {this.state.credits.map((one) => {
-                  return <InputItemAndAmount key={one.id} data={one} onChange={this.handleChangeCredit}/>;
-                })}
+                {credits}
               </div>
             </section>
           </Modal.Body>
