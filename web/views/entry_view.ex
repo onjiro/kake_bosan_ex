@@ -15,6 +15,7 @@ defmodule KakeBosanEx.EntryView do
     %{id: entry.id,
       side_id: entry.side_id,
       amount: entry.amount,
-      item_id: entry.item_id }
+      item_id: entry.item_id,
+      item: render_one(entry.item, ItemView, "item.json")}
   end
 end

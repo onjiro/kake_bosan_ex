@@ -10,7 +10,7 @@ defmodule KakeBosanEx.TransactionController do
     transactions = Repo.all(
       from t in Transaction,
       where: t.user_id == ^user_id,
-      preload: [:entries]
+      preload: [entries: :item]
     )
 
     render(conn, "index.json", transactions: transactions)
