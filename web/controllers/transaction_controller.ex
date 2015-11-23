@@ -5,14 +5,31 @@ defmodule KakeBosanEx.TransactionController do
 
   plug :scrub_params, "transaction" when action in [:create, :update]
 
-  def index(conn, _params) do
-    transactions = Repo.all(
-      from t in Transaction,
-      where: t.user_id == ^user_id(conn),
-      order_by: [desc: t.date],
-      preload: [entries: :item]
-    )
-
+  def index(conn, params) do
+    transactions = case params do
+                     %{ "dateFrom" => _, "dateTo" => ""} ->
+                       Repo.all(
+                         from t in Transaction,
+                         where: t.user_id == ^user_id(conn),
+                         where: t.date >= ^params["dateFrom"],
+                         order_by: [desc: t.date],
+                         preload: [entries: :item])
+                     %{ "dateFrom" => _, "dateTo" => _} ->
+                       Repo.all(
+                         from t in Transaction,
+                         where: t.user_id == ^user_id(conn),
+                         where: t.date >= ^params["dateFrom"],
+                         where: t.date <= ^params["dateTo"],
+                         order_by: [desc: t.date],
+                         preload: [entries: :item])
+                     _ ->
+                       Repo.all(
+                         from t in Transaction,
+                         where: t.user_id == ^user_id(conn),
+                         order_by: [desc: t.date],
+                         preload: [entries: :item])
+                   end
+    IO.puts(inspect params)
     render(conn, "index.json", transactions: transactions)
   end
 
