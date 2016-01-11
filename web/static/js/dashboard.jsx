@@ -14,6 +14,9 @@ export default React.createClass({
   componentDidMount() {
     var dateFrom = moment().subtract(7, 'days').toISOString();
     var dateTo = null;
+    this.loadHistories(dateFrom, dateTo);
+  },
+  loadHistories(dateFrom, dateTo) {
     $.when(
       $.ajax(`${this.props.url}/transactions`, { dataType: 'json', data: {
         dateFrom: dateFrom,
@@ -21,14 +24,20 @@ export default React.createClass({
       } }),
       $.ajax(`${this.props.url}/items`       , { dataType: 'json' })
     ).then((trxRes, itemsRes) => {
+      var currentTransactions = this.state.transactions;
       this.setState({
         transactionDateFrom: dateFrom,
-        transactions:        trxRes[0].data,
+        transactions:        currentTransactions.concat(trxRes[0].data),
         items:               itemsRes[0].data
       });
     }, (err) => {
-      console.log(err);
+      console.error(err);
     });
+  },
+  loadFollowingHistories() {
+    var dateTo = moment(this.state.transactionDateFrom).subtract(1, 'day');
+    var dateFrom = dateTo.clone().subtract(1, 'month');
+    this.loadHistories(dateFrom.toISOString(), dateTo.toISOString());
   },
   startNewEntry() {
     this.setState({
@@ -51,7 +60,8 @@ export default React.createClass({
       <div>
         <NewEntryButtonForm onClick={this.startNewEntry}>登録</NewEntryButtonForm>
         <RecentHistory data={this.state.transactions}
-                       dateFrom={this.state.transactionDateFrom} />
+                       dateFrom={this.state.transactionDateFrom}
+                       loadFollowingHistories={this.loadFollowingHistories} />
 
         <EntryModal title="登録" url="api/transactions"
                     items={this.state.items}

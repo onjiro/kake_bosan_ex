@@ -22,6 +22,10 @@ export default React.createClass({
     var from = moment(this.props.dateFrom).subtract(1, 'month').format("YYYY/MM/DD");
     return `${to} 〜 ${from}`;
   },
+  loadFollowingHistories(e) {
+    e.preventDefault();
+    this.props.loadFollowingHistories();
+  },
   render() {
     var list =  this.props.data.map((transaction) => (
       <tr>
@@ -54,9 +58,9 @@ export default React.createClass({
             </tbody>
           </table>
           <div className="col-xs-12">
-            <div className="btn btn-lg btn-default btn-block">
+            <a className="btn btn-lg btn-default btn-block" href="#" onClick={this.loadFollowingHistories}>
               <span clasName="glyphicon glyphicon-download"></span>続き({this.toBeLoadedRange()})
-            </div>
+            </a>
           </div>
         </section>
       </div>
