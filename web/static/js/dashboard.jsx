@@ -6,21 +6,38 @@ export default React.createClass({
   getInitialState() {
     return {
       currentEntry: null,
+      transactionDateFrom: null,
+      transactionDateTo: null,
       transactions: []
     };
   },
   componentDidMount() {
+    var dateFrom = moment().subtract(7, 'days').toISOString();
+    var dateTo = null;
+    this.loadHistories(dateFrom, dateTo);
+  },
+  loadHistories(dateFrom, dateTo) {
     $.when(
-      $.ajax(`${this.props.url}/transactions`, { dataType: 'json', cache: false }),
-      $.ajax(`${this.props.url}/items`       , { dataType: 'json', cache: true })
+      $.ajax(`${this.props.url}/transactions`, { dataType: 'json', data: {
+        dateFrom: dateFrom,
+        dateTo:   dateTo
+      } }),
+      $.ajax(`${this.props.url}/items`       , { dataType: 'json' })
     ).then((trxRes, itemsRes) => {
+      var currentTransactions = this.state.transactions;
       this.setState({
-        transactions: trxRes[0].data,
-        items: itemsRes[0].data
+        transactionDateFrom: dateFrom,
+        transactions:        currentTransactions.concat(trxRes[0].data),
+        items:               itemsRes[0].data
       });
     }, (err) => {
-      console.log(err);
+      console.error(err);
     });
+  },
+  loadFollowingHistories() {
+    var dateTo = moment(this.state.transactionDateFrom).subtract(1, 'day');
+    var dateFrom = dateTo.clone().subtract(1, 'month');
+    this.loadHistories(dateFrom.toISOString(), dateTo.toISOString());
   },
   startNewEntry() {
     this.setState({
@@ -42,7 +59,9 @@ export default React.createClass({
     return (
       <div>
         <NewEntryButtonForm onClick={this.startNewEntry}>登録</NewEntryButtonForm>
-        <RecentHistory data={this.state.transactions} />
+        <RecentHistory data={this.state.transactions}
+                       dateFrom={this.state.transactionDateFrom}
+                       loadFollowingHistories={this.loadFollowingHistories} />
 
         <EntryModal title="登録" url="api/transactions"
                     items={this.state.items}

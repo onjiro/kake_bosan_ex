@@ -17,6 +17,15 @@ export default React.createClass({
   creditSum(transaction) {
     return _(this.credits(transaction).reduce((memo, e) => memo + e.amount, 0));
   },
+  toBeLoadedRange() {
+    var to   = moment(this.props.dateFrom).subtract(1, 'days').format("YYYY/MM/DD");
+    var from = moment(this.props.dateFrom).subtract(1, 'month').format("YYYY/MM/DD");
+    return `${to} 〜 ${from}`;
+  },
+  loadFollowingHistories(e) {
+    e.preventDefault();
+    this.props.loadFollowingHistories();
+  },
   render() {
     var list =  this.props.data.map((transaction) => (
       <tr>
@@ -49,9 +58,9 @@ export default React.createClass({
             </tbody>
           </table>
           <div className="col-xs-12">
-            <div className="btn btn-lg btn-default btn-block">
-              <span clasName="glyphicon glyphicon-download"></span>続き(2015/07/16 〜 2015/06/16)
-            </div>
+            <a className="btn btn-lg btn-default btn-block" href="#" onClick={this.loadFollowingHistories}>
+              <span clasName="glyphicon glyphicon-download"></span>続き({this.toBeLoadedRange()})
+            </a>
           </div>
         </section>
       </div>
