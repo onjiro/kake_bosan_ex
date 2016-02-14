@@ -7,7 +7,8 @@ defmodule KakeBosanEx.Item do
     field :type_id, :integer
     field :description, :string
 
-    belongs_to :user, KekebosanEx.User
+    belongs_to :user, KekeBosanEx.User
+    has_many :inventories, KakeBosanEx.Inventory
 
     timestamps
   end

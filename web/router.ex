@@ -35,6 +35,7 @@ defmodule KakeBosanEx.Router do
   scope "/api", KakeBosanEx do
     pipe_through :api
     resources "transactions",  TransactionController
+    resources "inventories",  InventoryController
     resources "items", ItemController
   end
 
