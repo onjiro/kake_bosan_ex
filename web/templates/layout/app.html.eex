@@ -11,23 +11,10 @@
         <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     </head>
 
-    <body>
-        <%= if @current_user do %>
-            <%= render "header.html", current_user: @current_user %>
-        <%= end %>
+    <body />
 
-        <div class="container-fluid">
-            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
-            <section class="content row">
-                <%= @inner %>
-            </section>
-        </div>
-
-        <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-        <script>require("web/static/js/app")</script>
-    </body>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script>require("web/static/js/app")</script>
 </html>
 
 
