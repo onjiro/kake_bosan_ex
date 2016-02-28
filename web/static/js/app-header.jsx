@@ -1,3 +1,5 @@
+var { IndexLink, Router, Route, Link, browserHistory } = ReactRouter;
+
 export default React.createClass({
   render() {
     return (
@@ -12,10 +14,8 @@ export default React.createClass({
 
         <div className="collapse navbar-collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li className="current-user dropdown">
-              <li className="active"><a href="#"><span className="glyphicon glyphicon-list-alt"></span> 履歴</a></li>
-              <li><a href="#"><span className="glyphicon glyphicon-check"></span> 棚卸し</a></li>
-            </li>
+            <li><IndexLink to="/"            activeClassName="active" ><span className="glyphicon glyphicon-list-alt"></span> 履歴</IndexLink></li>
+            <li><Link      to="/inventories" activeClassName="active" ><span className="glyphicon glyphicon-check"></span> 棚卸し</Link></li>
           </ul>
         </div>
       </nav>

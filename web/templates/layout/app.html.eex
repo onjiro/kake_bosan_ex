@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-
         <title>家計簿さん</title>
         <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     </head>
 
-    <body />
+    <body>
+      <div id="root" />
+    </body>
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script>require("web/static/js/app")</script>
