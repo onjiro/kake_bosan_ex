@@ -60,6 +60,6 @@ defmodule KakeBosanEx.ItemController do
   end
 
   def user_id(conn) do
-    get_session(conn, :current_user_id)
+    get_session(conn, :current_user).id
   end
 end

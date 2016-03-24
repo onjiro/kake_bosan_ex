@@ -29,7 +29,6 @@ defmodule KakeBosanEx.TransactionController do
                          order_by: [desc: t.date],
                          preload: [entries: :item])
                    end
-    IO.puts(inspect params)
     render(conn, "index.json", transactions: transactions)
   end
 
@@ -80,6 +79,6 @@ defmodule KakeBosanEx.TransactionController do
   end
 
   def user_id(conn) do
-    get_session(conn, :current_user_id)
+    get_session(conn, :current_user).id
   end
 end
