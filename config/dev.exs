@@ -32,4 +32,5 @@ config :kake_bosan_ex, KakeBosanEx.Repo,
   username: "postgres",
   password: "postgres",
   database: "kake_bosan_ex_dev",
+  hostname: "localhost",
   size: 10 # The amount of database connections in the pool
