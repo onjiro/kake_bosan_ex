@@ -18,7 +18,8 @@ defmodule KakeBosanEx.Mixfile do
   def application do
     [mod: {KakeBosanEx, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :oauth2]]
+                    :phoenix_ecto, :postgrex, :ueberauth,
+                    :ueberauth_identity, :ueberauth_github, :ueberauth_twitter]]
   end
 
   # Specifies which paths to compile per environment
@@ -35,6 +36,11 @@ defmodule KakeBosanEx.Mixfile do
      {:phoenix_html, "~> 2.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:oauth2, "~> 0.3.0"}]
+     {:ueberauth, "~> 0.2"},
+     {:ueberauth_identity, "~> 0.2"},
+     {:ueberauth_github, "~> 0.2"},
+     {:ueberauth_twitter, "~> 0.2"},
+     {:oauth, github: "tim/erlang-oauth"}, # required by ueberauth_twitter
+    ]
   end
 end
