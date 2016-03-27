@@ -9,15 +9,5 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse">
     </div>
-    <!--
-    <ul class="nav navbar-nav navbar-right">
-    <li class="current-user dropdown">
-    <a href="#" data-toggle="dropdown">ログイン中: <%= @current_user.name %> <span class="caret"></span></a>
-    <ul class="dropdown-menu">
-    <li class="logout"><a href="/sessions/destroy"><i class="icon-signout"></i> ログアウト</a></li>
-    </ul>
-    </li>
-    </ul>
-    -->
 
 </nav>
