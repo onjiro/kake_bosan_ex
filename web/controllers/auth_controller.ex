@@ -18,15 +18,29 @@ defmodule KakeBosanEx.AuthController do
     render(conn, "request.html", callback_url: Helpers.callback_url(conn))
   end
 
+  # 通常の oauth 認証
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
+    case get_or_create_user(auth) do
+      %{ id: _ } = user ->
+        conn
+        |> put_flash(:info, "#{user.name} としてログインしました")
+        |> put_session(:current_user, user)
+        |> redirect(to: "/dashboard")
+      _ ->
+        conn
+        |> put_flash(:error, "ユーザー作成に失敗しました")
+        |> redirect(to: "/")
+    end
+  end
+
   # ユーザーID、パスワード方式の認証
   def identity_callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
     case validate_pass(auth.credentials) do
       :ok ->
         case get_or_create_user(auth) do
           %{ id: _ } = user ->
-            IO.puts inspect user
             conn
-            |> put_flash(:info, "#{user.uid} としてログインしました")
+            |> put_flash(:info, "#{user.name} としてログインしました")
             |> put_session(:current_user, user)
             |> redirect(to: "/dashboard")
           _ ->
@@ -52,26 +66,7 @@ defmodule KakeBosanEx.AuthController do
   end
   defp validate_pass(_), do: {:error, "Password Required"}
 
-  defp get_or_create_user(auth) do
-    Repo.get_by(User, uid: auth.uid, provider: Atom.to_string(auth.provider)) ||
-      create_user(%{id: auth.uid, name: auth.info.name, avatar: auth.info.image, email: auth.extra.raw_info["email"], provider: Atom.to_string(auth.provider) })
+  defp get_or_create_user(%{ uid: uid, provider: provider } = auth) do
+    Repo.get_by(User, uid: uid, provider: Atom.to_string(provider)) || User.create_with_ueberauth(auth)
   end
-  defp create_user(params) do
-      changeset = User.changeset(%User{}, %{ provider: params[:provider],
-                                             uid: params[:id],
-                                             name: params[:id],
-                                             image_url: "",
-                                             email: params[:email],
-                                             access_token: "dev"})
-
-      case changeset.valid? && Repo.insert(changeset) do
-        {:ok, user} ->
-          KakeBosanEx.Item.create_initial_items(user)
-          user
-        _ ->
-          IO.puts inspect changeset
-          nil
-      end
-  end
-
 end
