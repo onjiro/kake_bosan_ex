@@ -42,7 +42,7 @@ export default React.createClass({
       <div className="col-xs-12">
         <h4>直近７日間の履歴</h4>
         <section className="history row" style={{ minHeight: '320px'}}>
-          <table className="table" ng-show="history.initialized">
+          <table className="table">
             <thead>
               <tr>
                 <th>日付</th>
