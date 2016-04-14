@@ -1,6 +1,7 @@
 import NewEntryButtonForm from "./new-entry-button-form";
 import RecentHistory from "./recent-history";
 import EntryModal from "./entry-modal";
+import Notice from "./notice";
 
 export default React.createClass({
   getInitialState() {
@@ -30,8 +31,9 @@ export default React.createClass({
         transactions:        currentTransactions.concat(trxRes[0].data),
         items:               itemsRes[0].data
       });
-    }, (err) => {
-      console.error(err);
+    }).fail((err) => {
+      console.log(err);
+      this.error("エラーが発生しました。");
     });
   },
   deleteTransaction(transaction) {
@@ -41,8 +43,10 @@ export default React.createClass({
       this.setState({
         transactions: _(this.state.transactions).reject((one) => one.id === transaction.id)
       });
+      this.info("登録を削除しました。");
     }).fail((err) => {
-      console.error(err);
+      console.log(err);
+      this.error("エラーが発生しました。");
     });
   },
   loadFollowingHistories() {
@@ -62,13 +66,25 @@ export default React.createClass({
   handleSave(data) {
     this.closeEntryModal();
     this.setState({ transactions: [data.data].concat(this.state.transactions) });
+    this.info("登録しました。");
   },
   closeEntryModal() {
     this.setState({ currentEntry: null });
   },
+  info(text) {
+    this.setState({ notice: {type: "info", text: text} });
+    setTimeout(() => this.setState({ notice: null }), 2000); // todo 別のnoticeが削除される可能性がある
+  },
+  error(text) {
+    this.setState({ notice: {type: "danger", text: text} });
+    setTimeout(() => this.setState({ notice: null }), 2000);
+  },
   render() {
+    var notice = (this.state.notice) && (<Notice type={this.state.notice.type}>{this.state.notice.text}</Notice>);
+
     return (
       <div>
+        {notice}
         <NewEntryButtonForm onClick={this.startNewEntry}>登録</NewEntryButtonForm>
         <RecentHistory data={this.state.transactions}
                        dateFrom={this.state.transactionDateFrom}

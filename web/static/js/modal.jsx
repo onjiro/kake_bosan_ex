@@ -8,7 +8,6 @@ let Modal = React.createClass({
           </div>
         </div>
       </div>
-      
     );
   }
 });
@@ -19,7 +18,6 @@ Modal.Header = React.createClass({
         <button type="button" className="close" onClick={this.props.onHide}><span>&times;</span></button>
         {this.props.children}
       </div>
-      
     );
   }
 });

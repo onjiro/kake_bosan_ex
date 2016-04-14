@@ -32,3 +32,14 @@ input {
     background-color: #a44;
   }
 }
+
+.alert-float {
+  dispaly: block;
+  position: fixed;
+  top: 15%;
+  width: 95%;
+  z-index: 1000;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
