@@ -11,8 +11,9 @@ export default React.createClass({
     this.props.loadFollowingHistories();
   },
   render() {
-    var list =  this.props.data.map((transaction) => (
-      <RecentHistoryRow data={transaction} />
+    var list = this.props.data.map((transaction) => (
+      <RecentHistoryRow data={transaction}
+                        deleteTransaction={this.props.deleteTransaction}/>
     ));
 
     return (
@@ -31,7 +32,7 @@ export default React.createClass({
               </tr>
             </thead>
             <tbody>
-              { this.props.data.map((transaction) => <RecentHistoryRow data={transaction} />) }
+              { list }
             </tbody>
           </table>
           <div className="col-xs-12">

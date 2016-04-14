@@ -34,6 +34,15 @@ export default React.createClass({
       console.error(err);
     });
   },
+  deleteTransaction(transaction) {
+    $.ajax(`${this.props.url}/transactions/${transaction.id}`, {
+      method: 'DELETE'
+    }).then((data) => {
+      this.setState("transactions", _(this.state.transactions).reject((one) => one.id === transaction.id));
+    }).fail((err) => {
+      console.error(err);
+    });
+  },
   loadFollowingHistories() {
     var dateTo = moment(this.state.transactionDateFrom).subtract(1, 'day');
     var dateFrom = dateTo.clone().subtract(1, 'month');
@@ -61,7 +70,8 @@ export default React.createClass({
         <NewEntryButtonForm onClick={this.startNewEntry}>登録</NewEntryButtonForm>
         <RecentHistory data={this.state.transactions}
                        dateFrom={this.state.transactionDateFrom}
-                       loadFollowingHistories={this.loadFollowingHistories} />
+                       loadFollowingHistories={this.loadFollowingHistories}
+                       deleteTransaction={this.deleteTransaction}/>
 
         <EntryModal title="登録" url="api/transactions"
                     items={this.state.items}

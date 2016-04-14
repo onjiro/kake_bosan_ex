@@ -19,7 +19,7 @@ export default React.createClass({
   },
   delete(e) {
     if (window.confirm("本当に削除してよろしいですか？")) {
-      console.log(this.props.data.id);
+      this.props.deleteTransaction(this.props.data);
     }
   },
   render() {
