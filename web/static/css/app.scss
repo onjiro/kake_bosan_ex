@@ -8,3 +8,27 @@ form.link, form.button {
 input {
   font-size: 16px !important; /* iOSでフォーム入力時にズームするのを避ける */
 }
+
+.delete-row {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  vertical-align: middle;
+  line-height: 0.8;
+  white-space: nowrap;
+  color: #888;
+  background-color: transparent;
+  border: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: white;
+    background-color: #a44;
+  }
+}

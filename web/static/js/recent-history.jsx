@@ -34,7 +34,7 @@ export default React.createClass({
         <td>&yen;{this.debitSum(transaction)}</td>
         <td>{this.creditItems(transaction)}</td>
         <td>&yen;{this.creditSum(transaction)}</td>
-        <td></td>
+        <td><button type="button" className="delete-row pull-right">x</button></td>
       </tr>
     ));
 
