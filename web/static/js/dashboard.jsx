@@ -38,7 +38,9 @@ export default React.createClass({
     $.ajax(`${this.props.url}/transactions/${transaction.id}`, {
       method: 'DELETE'
     }).then((data) => {
-      this.setState("transactions", _(this.state.transactions).reject((one) => one.id === transaction.id));
+      this.setState({
+        transactions: _(this.state.transactions).reject((one) => one.id === transaction.id)
+      });
     }).fail((err) => {
       console.error(err);
     });
