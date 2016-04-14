@@ -72,10 +72,10 @@ defmodule KakeBosanEx.TransactionController do
   end
 
   def delete(conn, %{"id" => id}) do
-    transaction = Repo.get(Transaction, id)
+    transaction = Repo.get!(Transaction, id)
+    Repo.delete!(transaction)
 
-    transaction = Repo.delete(transaction)
-    render(conn, "show.json", transaction: transaction)
+    send_resp(conn, :no_content, "")
   end
 
   def user_id(conn) do

@@ -6,7 +6,7 @@ defmodule KakeBosanEx.Transaction do
     field :description, :string
 
     belongs_to :user, KakeBosanEx.User
-    has_many :entries, KakeBosanEx.Entry
+    has_many :entries, KakeBosanEx.Entry, on_delete: :delete_all
 
     timestamps
   end
