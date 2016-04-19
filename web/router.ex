@@ -37,6 +37,7 @@ defmodule KakeBosanEx.Router do
     resources "transactions",  TransactionController
     resources "inventories",  InventoryController
     resources "items", ItemController
+    resources "inventories", InventoryController
   end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This

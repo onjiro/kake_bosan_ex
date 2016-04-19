@@ -2,8 +2,18 @@ defmodule KakeBosanEx.InventoryController do
   use KakeBosanEx.Web, :controller
 
   alias KakeBosanEx.Inventory
+  alias KakeBosanEx.Item
 
   plug :scrub_params, "inventory" when action in [:create, :update]
+
+  # 資産、負債、資本の最新の棚卸額を返す
+  def index(conn, %{"current" => "true"}) do
+    inventories = from(item in Item,
+                       where: item.user_id == ^user_id(conn)
+                       and item.type_id in ^[1, 3, 4])
+    |> Inventory.calculate
+    render(conn, "index.json", inventories: inventories)
+  end
 
   def index(conn, _params) do
     inventories = Repo.all(Inventory)
@@ -53,5 +63,9 @@ defmodule KakeBosanEx.InventoryController do
     Repo.delete!(inventory)
 
     send_resp(conn, :no_content, "")
+  end
+
+  def user_id(conn) do
+    get_session(conn, :current_user).id
   end
 end

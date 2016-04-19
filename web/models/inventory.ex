@@ -1,13 +1,18 @@
 # 棚卸の記録
 defmodule KakeBosanEx.Inventory do
   use KakeBosanEx.Web, :model
+  alias KakeBosanEx.Inventory
+  alias KakeBosanEx.Item
+  alias KakeBosanEx.Entry
+  alias KakeBosanEx.Transaction
+  alias KakeBosanEx.Repo
 
   schema "inventories" do
     field :date, Ecto.Date
     field :amount, :integer
 
-    belongs_to :item, KakeBosanEx.Item
-    has_one :transaction, KakeBosanEx.Transaction # 棚卸差額調整がある場合がある
+    belongs_to :item, Item
+    has_one :transaction, Transaction # 棚卸差額調整がある場合がある
 
     timestamps
   end
@@ -18,6 +23,27 @@ defmodule KakeBosanEx.Inventory do
   after_insert :create_adjustment_transaction
   after_update :create_adjustment_transaction
   after_delete :delete_adjustment_transaction
+
+  @doc """
+  指定された勘定科目について指定日時点の棚卸高を計算する
+  """
+  def calculate(item_query, at \\ Ecto.DateTime.utc) do
+    results = Repo.all(
+      from item in item_query,
+      left_join: entry in assoc(item, :entries),
+      left_join: trx in Transaction,
+      on: trx.id == entry.transaction_id and trx.date <= ^at,
+      order_by: [item.type_id, item.id],
+      group_by: [item.type_id, item.id],
+      select: %{
+        item: item,
+        amount: fragment("COALESCE(SUM(CASE WHEN ? = (CASE ? WHEN 1 THEN 1 WHEN 2 THEN 1 ELSE 2 END) THEN amount ELSE -amount END), ?)", entry.side_id, item.type_id, 0)
+      }
+    )
+
+    for %{item: item, amount: amount} <- results,
+    do: %Inventory{item: item, amount: amount, date: Ecto.DateTime.to_date(at)}
+  end
 
   @doc """
   棚卸差額調整のための取引を作成するコールバック関数
