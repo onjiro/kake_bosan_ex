@@ -36,6 +36,7 @@ defmodule KakeBosanEx.Router do
     pipe_through :api
     resources "transactions",  TransactionController
     resources "items", ItemController
+    resources "inventories", InventoryController
   end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This

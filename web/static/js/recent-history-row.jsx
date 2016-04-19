@@ -27,7 +27,7 @@ export default React.createClass({
       <tr>
         <td>{moment(this.props.data.date).format('YYYY-MM-DD')}</td>
         <td>{this.debitItems(this.props.data)}</td>
-        <td>&yen;{this.debitSum(this.props.data)}</td>
+        <td className="hidden-xs">&yen;{this.debitSum(this.props.data)}</td>
         <td>{this.creditItems(this.props.data)}</td>
         <td>&yen;{this.creditSum(this.props.data)}</td>
         <td><button type="button" className="delete-row pull-right" onClick={this.delete}>x</button></td>
