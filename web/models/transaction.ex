@@ -24,8 +24,9 @@ defmodule KakeBosanEx.Transaction do
 
   棚卸記録を調整した場合の調整は Inventory 側で実施する。
   """
-  defp update_immediate_inventory_adjustment_transaction(transaction) do
+  defp update_immediate_inventory_adjustment_transaction(transaction_changeset) do
     # todo
+    transaction_changeset
   end
 
   @doc """

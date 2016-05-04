@@ -53,6 +53,7 @@ defmodule KakeBosanEx.Inventory do
   """
   defp create_adjustment_transaction(inventory) do
     # transaction がなければ作成する、あれば更新する
+    inventory
   end
 
   @doc """
@@ -64,6 +65,8 @@ defmodule KakeBosanEx.Inventory do
         Repo.get!(KakeBosanEx.Transaction, inventory.transaction_id)
         |> Repo.delete!
     end
+
+    inventory
   end
 
   @doc """

@@ -6,16 +6,16 @@ export default React.createClass({
     return _(this.props.data.entries || []).select((e) => e.side_id == 2);
   },
   debitItems() {
-    return _(this.debits(this.props.data).reduce((memo, e) => memo + e.item.name, ''));
+    return this.debits(this.props.data).reduce((memo, e) => memo + e.item.name, '');
   },
   creditItems() {
-    return _(this.credits(this.props.data).reduce((memo, e) => memo + e.item.name, ''));
+    return this.credits(this.props.data).reduce((memo, e) => memo + e.item.name, '');
   },
   debitSum() {
-    return _(this.debits(this.props.data).reduce((memo, e) => memo + e.amount, 0));
+    return this.debits(this.props.data).reduce((memo, e) => memo + e.amount, 0);
   },
   creditSum() {
-    return _(this.credits(this.props.data).reduce((memo, e) => memo + e.amount, 0));
+    return this.credits(this.props.data).reduce((memo, e) => memo + e.amount, 0);
   },
   delete(e) {
     if (window.confirm("本当に削除してよろしいですか？")) {

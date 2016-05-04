@@ -34,7 +34,7 @@ export default React.createClass({
     });
   },
   handleChangeDate() {
-    var newVal = Date.parse(React.findDOMNode(this.refs.date).value);
+    var newVal = Date.parse(ReactDOM.findDOMNode(this.refs.date).value);
     if (newVal) this.setState({ date: new Date(newVal) })
   },
   handleChangeDebit(data) {

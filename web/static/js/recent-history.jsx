@@ -12,7 +12,7 @@ export default React.createClass({
   },
   render() {
     var list = this.props.data.map((transaction) => (
-      <RecentHistoryRow data={transaction}
+      <RecentHistoryRow key={transaction.id} data={transaction}
                         deleteTransaction={this.props.deleteTransaction}/>
     ));
 
