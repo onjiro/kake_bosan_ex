@@ -6,28 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-
         <title>家計簿さん</title>
         <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     </head>
 
     <body>
-        <%= if @current_user do %>
-            <%= render "header.html", current_user: @current_user %>
-        <%= end %>
-
-        <div class="container-fluid">
-            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
-            <section class="content row">
-                <%= @inner %>
-            </section>
-        </div>
-
-        <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-        <script>require("web/static/js/app")</script>
+      <div id="root" />
     </body>
+
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script>require("web/static/js/app")</script>
 </html>
 
 

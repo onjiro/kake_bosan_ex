@@ -20,7 +20,7 @@ defmodule KakeBosanEx.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/dashboard", PageController, :dashboard
+    get "/:any", PageController, :index
     resources "users", UserController
   end
 
@@ -35,7 +35,9 @@ defmodule KakeBosanEx.Router do
   scope "/api", KakeBosanEx do
     pipe_through :api
     resources "transactions",  TransactionController
+    resources "inventories",  InventoryController
     resources "items", ItemController
+    resources "inventories", InventoryController
   end
 
   # Fetch the current user from the session and add it to `conn.assigns`. This

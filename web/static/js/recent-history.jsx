@@ -12,7 +12,7 @@ export default React.createClass({
   },
   render() {
     var list = this.props.data.map((transaction) => (
-      <RecentHistoryRow data={transaction}
+      <RecentHistoryRow key={transaction.id} data={transaction}
                         deleteTransaction={this.props.deleteTransaction}/>
     ));
 
@@ -25,7 +25,7 @@ export default React.createClass({
               <tr>
                 <th>日付</th>
                 <th>借方科目</th>
-                <th className="amount">借方金額</th>
+                <th className="amount hidden-xs">借方金額</th>
                 <th>貸方科目</th>
                 <th className="amount">貸方金額</th>
                 <th>{/* controls */}</th>

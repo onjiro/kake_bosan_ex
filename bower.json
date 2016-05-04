@@ -14,9 +14,9 @@
     ],
     "dependencies": {
         "jquery": "~2.1.4",
-        "react": "~0.13.3",
-        "bootstrap": "~3.3.5",
-        "react-select": "~0.6.3",
+        "react": "~0.14.7",
+        "bootstrap": "~3.3.6",
+        "react-select": "~1.0.0-beta9",
         "underscore": "~1.8.3",
         "moment": "~2.10.6"
     },
@@ -35,7 +35,7 @@
         },
         "react-input-autosize": {
             "dependencies": {
-                "react": "~0.13.3"
+                "react": "~0.14.5"
             }
         }
     }

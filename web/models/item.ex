@@ -1,13 +1,16 @@
 defmodule KakeBosanEx.Item do
   use KakeBosanEx.Web, :model
   alias KakeBosanEx.Item
+  alias KakeBosanEx.User
+  alias KakeBosanEx.Entry
 
   schema "items" do
     field :name, :string
     field :type_id, :integer
     field :description, :string
 
-    belongs_to :user, KekebosanEx.User
+    belongs_to :user, User
+    has_many :entries, Entry
 
     timestamps
   end

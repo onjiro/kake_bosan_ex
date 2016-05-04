@@ -1,16 +1,16 @@
 export default React.createClass({
-  handleItemChange(val) {
+  handleItemChange(selected) {
     this.props.onChange({
       id: this.props.data.id,
-      item_id: val,
-      amount: React.findDOMNode(this.refs.amount).value
+      item_id: selected.value,
+      amount: ReactDOM.findDOMNode(this.refs.amount).value
     });
   },
   handleAmountChange(event) {
     this.props.onChange({
       id: this.props.data.id,
       item_id: this.props.data.item_id,
-      amount: React.findDOMNode(this.refs.amount).value
+      amount: ReactDOM.findDOMNode(this.refs.amount).value
     });
   },
   typeLabel(type) {
@@ -30,7 +30,7 @@ export default React.createClass({
     }));
     return (
       <div className="account-line clearfix">
-        <Select className="form-control col-xs-8-form" placeholder="科目"
+        <Select className="col-xs-8-form" placeholder="科目"
                 options={options} value={this.props.data.item_id}
                 onChange={this.handleItemChange} />
         <input className="form-control col-xs-4-form" placeholder="金額"

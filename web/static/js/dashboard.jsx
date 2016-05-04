@@ -19,11 +19,11 @@ export default React.createClass({
   },
   loadHistories(dateFrom, dateTo) {
     $.when(
-      $.ajax(`${this.props.url}/transactions`, { dataType: 'json', data: {
+      $.ajax(`api/transactions`, { dataType: 'json', data: {
         dateFrom: dateFrom,
         dateTo:   dateTo
       } }),
-      $.ajax(`${this.props.url}/items`       , { dataType: 'json' })
+      $.ajax(`api/items`       , { dataType: 'json' })
     ).then((trxRes, itemsRes) => {
       var currentTransactions = this.state.transactions;
       this.setState({
